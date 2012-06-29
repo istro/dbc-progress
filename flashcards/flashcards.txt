@@ -1,15 +1,15 @@
-shereef | lord of the flies
-jesse | uber nerd
-tony | marcus's brother
-marcus | tony's brother
-tanner | the creeper
-lachy | too young to drink
-jeremy | a well capped gent
-robert | syntax ninja
-anne | the math PhD
-brick | yoga... nuff said
-michael | has a crazy-ass last name
-june | video guru
-florette | the office keeper
-jose | takes care of the office late night
-sefora | best listener
+shereef	lord of the flies
+jesse	uber nerd
+tony	marcus's brother
+marcus	tony's brother
+tanner	the creeper
+lachy	too young to drink
+jeremy	a well capped gent
+robert	syntax ninja
+anne	the math PhD
+brick	yoga... nuff said
+michael	has a crazy-ass last name
+june	video guru
+florette	the office keeper
+jose	takes care of the office late night
+sefora	best listener

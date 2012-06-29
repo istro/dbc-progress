@@ -15,7 +15,7 @@ describe Flashcard::Deck do
   end
 
   it "can pull random cards from the deck" do
-    2.times { File.readlines('flashcards.txt').to_s.index(@deck.next_card.to_s).should_not be nil }
+    2.times { File.readlines('flashcards.txt').to_s.index(@deck.next_card.definition).should_not be nil }
   end
 
 
