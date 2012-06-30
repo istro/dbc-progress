@@ -36,6 +36,11 @@ describe Flashcard::Card do
     Flashcard::Card.from_string("my name\ti do stuff").should be_an_instance_of Flashcard::Card
   end
 
-
+  it "can confirm a term matches its definition" do
+    random_string = ""
+    10.times{ random_string << (65 + rand(50)).chr }
+    @card.match_term?(@card.term).should equal true
+    @card.match_term?(random_string).should equal false
+  end
 
 end
