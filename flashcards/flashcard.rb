@@ -1,18 +1,14 @@
-require './deck.rb'
-require './card.rb'
+require './game.rb'
 
-deck = Flashcard::Deck.new('./flashcards.txt')
+game = Flashcard::Game.new('./flashcards.txt')
+command = ""
 
-variable = ""
-puts "Type study if you want to study cards card.\nType guess if you want to practice.\nType exit if you're done."
-
-while variable != "exit"
-  if variable == "study"
-    puts "*" * 50
-    puts deck.next_card
-    puts "*" * 50 + "\n"
-  elsif variable == "guess"
-    # Do stuff
+while command != "exit"
+  if command == "study"
+    game.study(nil)
   end
-  variable = STDIN.readline.chomp
+  if command == "guess"
+    game.guess
+  end
+  command = gets.chomp
 end
