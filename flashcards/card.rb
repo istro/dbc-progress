@@ -17,5 +17,9 @@ module Flashcard
       "#@term\t#@definition"
     end
 
+    def match_term?(term)
+      @term == term
+    end
+
   end
 end

@@ -1,9 +1,13 @@
 require 'rspec'
+require 'simplecov'
+SimpleCov.start
 require './card.rb'
 
 describe Flashcard::Card do
   before :each do
-    @card = Flashcard::Card.new("new word","and definition")
+    @term = "a" * rand(24)
+    @definition = "b" * rand(15)
+    @card = Flashcard::Card.new(@term, @definition)
   end
 
   it "initializes a card" do
@@ -14,6 +18,14 @@ describe Flashcard::Card do
     it "responds to #{ item }" do
      @card.should respond_to item
     end
+  end
+
+  it "has a term" do
+    @card.term.should equal @term
+  end
+
+  it "has a definition" do
+    @card.definition.should equal @definition
   end
 
   it "can print itself as a string" do
