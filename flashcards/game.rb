@@ -42,28 +42,38 @@ module Flashcard
       card = self.get_card
       puts "#{ '*' * 50 }\n#{ card.definition }\n#{"*" * 50 + "\n"}"
       puts "What is the term that matches this definition?"
-      match_card(card)
-    # meh
-      puts "You'll get it next time, homie.  Here's the word #{ card.term }."
-      guess(command)
+      result = match_card(card)
+      if result == "stop"
+        puts @instructions
+        return
+      end
+      if result == "correct"
+        puts "Well, you guessed it this time... next one will be harder!"
+        guess(command)
+      else
+        puts "You'll get it next time, homie.  Here's the word #{ card.term }."
+        guess(command)
+      end
     end
 
     # This wasn't TDD'd.  Guess who's fault?
     def match_card(card)
       command = ""
       count = 0
+      result = "none"
       while !card.match_term?(command) && count < 3
         command = gets.chomp
         if command == "stop"
+          result = "stop"
           break
         elsif card.match_term?(command)
-          puts "Well, you guessed it this time... next one will be harder!"
-          guess(command)
+          result = "correct"
         else
           puts "Ha! You'll never guess it!"
           count += 1
         end
       end
+      result
     end
   end # End of the class
 end # End of hte module
