@@ -24,22 +24,42 @@ module Flashcard
 
     def study
       puts get_card.to_s
-      continue_game("study")
+      continue_game(:study)
+    end
+
+    def card_to_guess
+      @card_to_guess = get_card
+    end
+
+    def guess(term = nil)
+      if term.nil?
+        card_to_guess
+        puts @card_to_guess.definition
+        continue_game(:guess)
+      else
+        puts @card_to_guess.match_term?(term.to_s) ? "Correct" : "Wrong"
+        continue_game(:guess)
+      end
     end
 
     def continue_game(method)
       command = user_input
 
-      if command == "stop"
-        puts print_instructions
+      if command == :stop
+#       puts print_instructions
         return false
-      elsif method == "study"
-        study
+      else
+        case method
+          when :study
+            study
+          when :guess
+            guess(command)
+        end
       end
     end
 
     def user_input
-      gets.chomp
+      gets.chomp.to_sym
     end
 
   end # End of the class

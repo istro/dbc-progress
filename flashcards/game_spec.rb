@@ -6,7 +6,6 @@ require './game.rb'
 describe Flashcard::Game do
   before :each do
     @new_game = Flashcard::Game.new('flashcards.txt')
-    @new_game.stub(:user_input).and_return('study', 'stop')
   end
 
   it "initializes a game" do
@@ -28,7 +27,21 @@ describe Flashcard::Game do
   end
 
   it "runs in 'study' mode as expected until you type stop" do
+    @new_game.stub(:user_input).and_return(:study, :stop)
     @new_game.study.should equal false
+  end
+
+  it 'enters guess mode until you type stop' do
+    @new_game.stub(:get_card).and_return(Flashcard::Card.new('term', 'definition'))
+    @new_game.stub(:user_input).and_return(:anything, :stop)
+    @new_game.guess(nil).should equal false
+  end
+
+  it 'correctly matches a card in guess mode' do
+    @new_game.stub(:get_card).and_return(Flashcard::Card.new('term', 'definition'))
+    @new_game.stub(:user_input).and_return(:anything, :term, :stop)
+    @new_game.guess(nil)
+    STDOUT.should_receive(:puts).with("Correct")
   end
 
   it 'runs in guess mode until you type stop'
