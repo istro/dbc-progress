@@ -5,7 +5,7 @@ command = ""
 
 while command != "exit"
   if command == "study"
-    game.study(nil)
+    game.study
   end
   if command == "guess"
     game.guess
