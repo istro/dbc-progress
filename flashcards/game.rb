@@ -18,8 +18,16 @@ module Flashcard
       @cards[rand(@cards.length)]
     end
 
-    def print_instructions
+    def instructions
       "Type study if you want to study cards card.\nType guess if you want to practice.\nType exit if you're done."
+    end
+
+    def study_instructions
+      "Hit enter to get another term / definition combination.\nType 'stop' and hit enter to exit study mode."
+    end
+
+    def guess_instructions
+      "Type the term that matches the definition and hit enter.\nType 'stop' and hit enter to exit study mode."
     end
 
     def study
@@ -34,11 +42,23 @@ module Flashcard
     def guess(term = nil)
       if term.nil?
         card_to_guess
+        @counter = 1
         puts @card_to_guess.definition
         continue_game(:guess)
       else
-        puts @card_to_guess.match_term?(term.to_s) ? "Correct" : "Wrong"
-        continue_game(:guess)
+        if @card_to_guess.match_term?(term.to_s)
+          puts "Correct! Now, try this one:"
+          guess(nil)
+        else
+          if @counter < 3
+            puts "Wrong, please try again!"
+            @counter += 1
+            continue_game(:guess)
+          else
+            puts "Nice try.  Here's what you were looking for: #{@card_to_guess.term}"
+            guess(nil)
+          end
+        end
       end
     end
 
@@ -46,7 +66,7 @@ module Flashcard
       command = user_input
 
       if command == :stop
-#       puts print_instructions
+        # puts print_instructions
         return false
       else
         case method
@@ -63,100 +83,4 @@ module Flashcard
     end
 
   end # End of the class
-end # End of hte module
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-=begin
-
-# This wasn't TDD'd.  It's totally Tony's fault.
-def guess(command = nil)
-  if command == "stop"
-    puts "We're stopping now."
-    return true
-  end
-  card = self.get_card
-  puts "#{ '*' * 50 }\n#{ card.definition }\n#{"*" * 50 + "\n"}"
-  puts "What is the term that matches this definition?"
-  result = match_card(card)
-  if result == "stop"
-    puts @instructions
-    return
-  end
-  if result == "correct"
-    puts "Well, you guessed it this time... next one will be harder!"
-    guess(command)
-  else
-    puts "You'll get it next time, homie.  Here's the word #{ card.term }."
-    guess(command)
-  end
-end
-
-# This wasn't TDD'd.  Guess who's fault?
-def match_card(card)
-  command = ""
-  count = 0
-  result = "none"
-  while !card.match_term?(command) && count < 3
-    command = gets.chomp
-    if command == "stop"
-      result = "stop"
-      break
-    elsif card.match_term?(command)
-      result = "correct"
-    else
-      puts "Ha! You'll never guess it!"
-      count += 1
-    end
-  end
-  result
-end
-
-=end
+end # End of the module

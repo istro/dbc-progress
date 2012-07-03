@@ -4,11 +4,15 @@ game = Flashcard::Game.new('./flashcards.txt')
 command = ""
 
 while command != "exit"
+  puts game.instructions
+  command = gets.chomp
+
   if command == "study"
+    puts game.study_instructions
     game.study
   end
   if command == "guess"
-    game.guess
+    puts game.guess_instructions
+    game.guess(nil)
   end
-  command = gets.chomp
 end

@@ -6,6 +6,9 @@ require './game.rb'
 describe Flashcard::Game do
   before :each do
     @new_game = Flashcard::Game.new('flashcards.txt')
+    @instructions = "Type study if you want to study cards card.\nType guess if you want to practice.\nType exit if you're done."
+    @study_instructions = "Hit enter to get another term / definition combination.\nType 'stop' and hit enter to exit study mode."
+    @guess_instructions = "Type the term that matches the definition and hit enter.\nType 'stop' and hit enter to exit study mode."
   end
 
   it "initializes a game" do
@@ -22,8 +25,15 @@ describe Flashcard::Game do
   end
 
   it "can print instructions" do
-    instructions = "Type study if you want to study cards card.\nType guess if you want to practice.\nType exit if you're done."
-    @new_game.print_instructions.should == instructions
+    @new_game.instructions.should == @instructions
+  end
+
+  it "can print study instructions" do
+    @new_game.study_instructions.should == @study_instructions
+  end
+
+  it "can print guess instructions" do
+    @new_game.guess_instructions.should == @guess_instructions
   end
 
   it "runs in 'study' mode as expected until you type stop" do
@@ -38,21 +48,23 @@ describe Flashcard::Game do
   end
 
   it 'correctly matches a card in guess mode' do
+    STDOUT.should_receive(:puts).with("definition")
+    STDOUT.should_receive(:puts).with("Wrong, please try again!")
+    STDOUT.should_receive(:puts).with("Correct! Now, try this one:")
+    STDOUT.should_receive(:puts).with("definition")
     @new_game.stub(:get_card).and_return(Flashcard::Card.new('term', 'definition'))
     @new_game.stub(:user_input).and_return(:anything, :term, :stop)
     @new_game.guess(nil)
-    STDOUT.should_receive(:puts).with("Correct")
   end
 
-  it 'runs in guess mode until you type stop'
-    # @new_game.guess('stop').should == "Type study if you want to study cards card.\nType guess if you want to practice.\nType exit if you're done."
-
-
-
-  # it "can confirm a match of a card's definition and a term" do
-  #   # card = @new_game.get_card
-  #   # card.match_definition(card.term).should equal card.definition
-  #   @new_game.get_definition.should be_an_instance_of Object::String
-  # end
+  it 'only lets you guess 3 times before revealing the answer' do
+    STDOUT.should_receive(:puts).with("definition")
+    2.times { STDOUT.should_receive(:puts).with("Wrong, please try again!") }
+    STDOUT.should_receive(:puts).with("Nice try.  Here's what you were looking for: term")
+    STDOUT.should_receive(:puts).with("definition")
+    @new_game.stub(:get_card).and_return(Flashcard::Card.new('term', 'definition'))
+    @new_game.stub(:user_input).and_return(:anything, :anything_else, :anything_else_again, :stop)
+    @new_game.guess(nil)
+  end
 
 end
