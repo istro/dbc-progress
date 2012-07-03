@@ -8,8 +8,7 @@ module Flashcard
     end
 
     def self.from_string(string)
-      term = string.split("\t")[0].chomp
-      definition = string.split("\t")[1].chomp
+      term, definition = string.split("\t").collect(&:chomp)
       Flashcard::Card.new(term, definition)
     end
 

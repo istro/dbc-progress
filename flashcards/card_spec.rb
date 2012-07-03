@@ -43,4 +43,14 @@ describe Flashcard::Card do
     @card.match_term?(random_string).should equal false
   end
 
+  it "can return the number of correct guesses on it" do
+    @card.match_term?(@term)
+    @card.num_correct.should == 1
+  end
+
+  it "can return the number of incorrect guesses on it" do
+    @card.match_term?("anything")
+    @card.num_incorrect.should == 1
+  end
+
 end
