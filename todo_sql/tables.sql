@@ -1,0 +1,26 @@
+CREATE TABLE tasks (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+description VARCHAR NOT NULL,
+created_at DATETIME NOT NULL,
+completed_at DATETIME,
+priority_id
+);
+
+CREATE TABLE priorities (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+description
+);
+
+CREATE TABLE tags (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+tag VARCHAR NOT NULL
+);
+
+CREATE TABLE tags_tasks (
+id INTEGER PRIMARY KEY AUTOINCREMENT,
+tag_id INTEGER NOT NULL,
+task_id INTEGER NOT NULL,
+FOREIGN KEY (tag_id) REFERENCES 'tags' ('id'),
+FOREIGN KEY (task_id) REFERENCES 'tasks' ('id')
+);
+
