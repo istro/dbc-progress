@@ -3,12 +3,7 @@ id INTEGER PRIMARY KEY AUTOINCREMENT,
 description VARCHAR NOT NULL,
 created_at DATETIME NOT NULL,
 completed_at DATETIME,
-priority_id
-);
-
-CREATE TABLE priorities (
-id INTEGER PRIMARY KEY AUTOINCREMENT,
-description
+priority
 );
 
 CREATE TABLE tags (

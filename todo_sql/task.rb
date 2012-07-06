@@ -1,6 +1,8 @@
+require './list.rb'
+
 module Todo
   class Task
-    attr_reader :description, :created_at, :priority, :tags
+    attr_reader :description, :created_at, :priority, :tags, :id
     attr_accessor :completed_at
     def initialize(input)
       if input.class == String
@@ -12,6 +14,7 @@ module Todo
     def from_string(string)
       @created_at = Time.now
       @priority = nil
+      @id = nil
 
       #check if priority is given, capture it
       if string.match(/\s[1-5]$/g)
