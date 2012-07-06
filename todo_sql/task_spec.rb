@@ -7,11 +7,12 @@ include Todo
 
 describe "Task" do
 
-  describe ".new(from_string)" do
+  before (:each) do
+    @list = List.new("todo.db")
+    @task = Task.new("pet the elephant #personal #fun 5")
+  end
 
-      before (:each) do
-        @task = Task.new("pet the elephant #personal #fun 5")
-      end
+    describe ".new(from_string)" do
 
       it 'initializes as a Task object' do
         @task.should be_an_instance_of Task

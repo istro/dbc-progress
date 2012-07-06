@@ -1,4 +1,5 @@
-include 'list.rb'
+require 'list.rb'
+require 'task.rb'
 
-list = Todo::List.new(todo.db)
+list = Todo::List.new('todo.db')
 
