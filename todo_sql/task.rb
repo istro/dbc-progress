@@ -17,8 +17,9 @@ module Todo
       @id = nil
 
       #check if priority is given, capture it
-      if string.match(/\s[1-5]$/g)
+      if string.match(/\s([1-5])$/)
         @priority = $1.to_i
+        string = string[0..-2]
       end
 
       #check if there are tags given, separate them from description
