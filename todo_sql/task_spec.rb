@@ -34,18 +34,29 @@ describe "Task" do
         @task.tags[1].should == '#fun'
       end
 
-  end
+    end
 
-  describe ".new(from_db)" do
+    describe 'save' do
 
-  end
+      it 'assigns an id to task when saved to db' do
+        @task.id.should_not == nil
+      end
 
-  describe "completeness stuff" do
+      it 'can write this task to db'
+      # create a mock object to imitate changes in db?
 
-    it "can check if a task is complete"
-    it "can mark a task complete"
+    end
 
-  end
+    describe ".new(from_db)" do
+      it 'can load a task object from sql response'
+    end
+
+    describe "completeness stuff" do
+
+      it "can check if a task is complete"
+      it "can mark a task complete"
+
+    end
 
 end
 
