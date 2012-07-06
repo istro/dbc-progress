@@ -11,31 +11,17 @@ module Todo
 
     def from_string(string)
       @created_at = Time.now
-
-      # if string.match(/\s[1-5]$/g)
-      #   @priority = $1.to_i
+      @priority = nil
 
       #check if priority is given, capture it
-      if string[string.length-2] == ' ' && string[string.length-1].match(/1|2|3|4|5/)
-        @priority = string[string.length-1].to_i
-        string.slice!(-2..-1)
-      else
-        @priority = nil
+      if string.match(/\s[1-5]$/g)
+        @priority = $1.to_i
       end
 
-      @tags = []
       #check if there are tags given, separate them from description
-      # string.scan(/#\w+/)
-      if string.match(/#/)
-        arr = string.split(' ')
-        arr.each do |word|
-          if word[0] == '#'
-            @tags << word
-          end
-        end
-        string.slice!(string.index('#')-1..-1)
-      end
-      @description = string
+      @tags = string.scan(/#\w+/)
+
+      @description = string.gsub(/#\w+/, '').strip
     end
 
     def from_db(array)
