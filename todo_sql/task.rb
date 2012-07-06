@@ -26,6 +26,21 @@ module Todo
       @tags = string.scan(/#\w+/)
 
       @description = string.gsub(/#\w+/, '').strip
+      save
+    end
+
+    def save
+      # query
+      puts Todo::db.inspect
+
+      #retreive priority_id
+
+      #add the descr, created/completed dates & priority_id into tasks table, get the task_id
+
+      #check for existence of tags in tags table, get their id's (if not in the table, add them and get their id's)
+
+      #add task_id and tag_id's to the join table
+
     end
 
     def from_db(array)
